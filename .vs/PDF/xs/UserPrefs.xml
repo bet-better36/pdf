@@ -1,0 +1,40 @@
+﻿<Properties StartupConfiguration="{39BEAC8F-C64B-DE38-E302-56CF48842200}|">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Battle/BattleSystem.cs">
+    <Files>
+      <File FileName="Assets/Scripts/Battle/BattleUnit.cs" Line="37" Column="10" />
+      <File FileName="Assets/Scripts/Battle/BattleSystem.cs" Line="24" Column="1" />
+      <File FileName="Assets/Scripts/Pokemon/MoveBase.cs" />
+      <File FileName="Assets/Scripts/Pokemon/Move.cs" />
+      <File FileName="Assets/Scripts/GameController.cs" Line="50" Column="29" />
+      <File FileName="Assets/Scripts/Pokemon/PokemonParty.cs" />
+      <File FileName="Assets/Scripts/Pokemon/Pokemon.cs" />
+      <File FileName="Assets/Scripts/Battle/PartyMemberUI.cs" />
+      <File FileName="Assets/Scripts/Battle/BattleHud.cs" />
+      <File FileName="Assets/Scripts/Battle/PartyScreen.cs" />
+      <File FileName="Assets/Scripts/Battle/BattleDialogBox.cs" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="PDF" expanded="True">
+            <Node name="Assets" expanded="True">
+              <Node name="Scripts" expanded="True">
+                <Node name="Battle" expanded="True">
+                  <Node name="BattleSystem.cs" selected="True" />
+                </Node>
+                <Node name="Pokemon" expanded="True" />
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="7cf9aa16-6382-42a5-ba72-05e3e62c292b" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>
