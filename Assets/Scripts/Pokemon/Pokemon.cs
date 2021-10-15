@@ -17,9 +17,20 @@ public class Pokemon
     public Dictionary<Stat, int> Stats { get; set; }
     public Dictionary<Stat, int> StatBoosts { get; set; }
 
+    public Queue<string> StatusChenges { get; private set; }
+
+    Dictionary<Stat, string> statDic = new Dictionary<Stat, string>()
+    {
+        {Stat.Attack, "こうげき"},
+        {Stat.Defense, "ぼうぎょ"},
+        {Stat.SpAttack, "とくこう"},
+        {Stat.SpDefense, "とくぼう"},
+        {Stat.Speed, "すばやさ"},
+    };
+
     public void Init()
     {
-
+        StatusChenges = new Queue<string>();
         Moves = new List<Move>();
 
         foreach (LearnableMove learnableMove in Base.LearnableMoves)
@@ -38,6 +49,11 @@ public class Pokemon
         CalculateStats();
         HP = MaxHP;
 
+        ResetStatBoost();
+    }
+
+    void ResetStatBoost()
+    {
         StatBoosts = new Dictionary<Stat, int>()
         {
             {Stat.Attack, 0 },
@@ -46,6 +62,11 @@ public class Pokemon
             {Stat.SpDefense, 0 },
             {Stat.Speed, 0 },
         };
+    }
+
+    public void OnBattleOver()
+    {
+        ResetStatBoost();
     }
 
     void CalculateStats()
@@ -84,6 +105,14 @@ public class Pokemon
             Stat stat = statBoost.stat;
             int boost = statBoost.boost;
             StatBoosts[stat] = Mathf.Clamp(StatBoosts[stat] + boost, -6, 6);
+            if (boost > 0)
+            {
+                StatusChenges.Enqueue($"{Base.Name}の{statDic[stat]}があがった");
+            }
+            else
+            {
+                StatusChenges.Enqueue($"{Base.Name}の{statDic[stat]}がさがった");
+            }
         }
     }
 
@@ -93,19 +122,19 @@ public class Pokemon
     }
     public int Defense
     {
-        get { return Mathf.FloorToInt((Base.Defense * Level) / 100f) + 5; }
+        get { return GetStat(Stat.Defense); }
     }
     public int SpAttack
     {
-        get { return Mathf.FloorToInt((Base.SpAttack * Level) / 100f) + 5; }
+        get { return GetStat(Stat.SpAttack); }
     }
     public int SpDefense
     {
-        get { return Mathf.FloorToInt((Base.SpDefense * Level) / 100f) + 5; }
+        get { return GetStat(Stat.SpDefense); }
     }
     public int Speed
     {
-        get { return Mathf.FloorToInt((Base.Speed * Level) / 100f) + 5; }
+        get { return GetStat(Stat.Speed); }
     }
     public int MaxHP
     {

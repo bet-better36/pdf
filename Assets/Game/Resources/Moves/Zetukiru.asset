@@ -15,6 +15,10 @@ MonoBehaviour:
   name: "\u305C\u3064\u304D\u308B"
   description: 
   type: 2
-  power: 10000
+  power: 100000
   accracy: 100
   pp: 100
+  category: 0
+  target: 0
+  effects:
+    boosts: []

@@ -23,7 +23,7 @@ public class BattleSystem : MonoBehaviour
     [SerializeField] PartyScreen partyScreen;
 
     //[SerializeField] GameController gameController;
-    public UnityAction BattleOver;
+    public UnityAction OnBattleOver;
 
     BattleState state;
     int currentAction;
@@ -85,7 +85,6 @@ public class BattleSystem : MonoBehaviour
             {
                 //yield return dialogBox.TypeDialog("サトシの　てもとには たたかえる\nポケモンが　いない・・・");
                 //yield return dialogBox.TypeDialog("サトシは\nめのまえが　まっくらに　なった・・・");
-                state = BattleState.BattleOver;
                 BattleOver();
             }
             else
@@ -95,9 +94,15 @@ public class BattleSystem : MonoBehaviour
         }
         else
         {
-            state = BattleState.BattleOver;
             BattleOver();
         }
+    }
+
+    void BattleOver()
+    {
+        state = BattleState.BattleOver;
+        playerParty.Pokemons.ForEach(p => p.OnBattleOver());
+        OnBattleOver();
     }
 
     IEnumerator PlayerMove()
@@ -148,6 +153,8 @@ public class BattleSystem : MonoBehaviour
                     Debug.Log(targetUnit.Pokemon.Attack);
                 }
             }
+            yield return ShowStatusChanges(sourceUnit.Pokemon);
+            yield return ShowStatusChanges(targetUnit.Pokemon);
         }
         else
         {
@@ -163,6 +170,15 @@ public class BattleSystem : MonoBehaviour
             targetUnit.PlayerFaintAnimation();
             yield return new WaitForSeconds(0.5f);
             CheckForBattleOver(targetUnit);
+        }
+    }
+
+    IEnumerator ShowStatusChanges(Pokemon pokemon)
+    {
+        while (pokemon.StatusChenges.Count > 0)
+        {
+            string message = pokemon.StatusChenges.Dequeue();
+            yield return dialogBox.TypeDialog(message);
         }
     }
 

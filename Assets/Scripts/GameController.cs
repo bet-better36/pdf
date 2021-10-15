@@ -19,7 +19,7 @@ public class GameController : MonoBehaviour
     private void Start()
     {
         playerController.OnEncouted += StartBatlle;
-        battleSystem.BattleOver += EndBattle;
+        battleSystem.OnBattleOver += EndBattle;
     }
 
     public void StartBatlle()
