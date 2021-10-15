@@ -76,11 +76,6 @@ public class BattleSystem : MonoBehaviour
         partyScreen.SetPatyData(playerParty.Pokemons);
     }
 
-    void CheckForBattleOve()
-    {
-        Debug.Log("fff");
-    }
-
     void CheckForBattleOver(BattleUnit faintedUnit)
     {
         if (faintedUnit.IsPlayerUnit)
@@ -136,11 +131,33 @@ public class BattleSystem : MonoBehaviour
         sourceUnit.PlayerAttackAnimation();
         yield return new WaitForSeconds(0.5f);
         targetUnit.PlayerHitAnimation();
-        DamageDetails damageDetails = targetUnit.Pokemon.TakeDamage(move, sourceUnit.Pokemon);
-        yield return targetUnit.Hud.UpdateHP();
-        yield return ShowDamageDetails(damageDetails);
+        Debug.Log(targetUnit.Pokemon.Attack);
 
-        if (damageDetails.Fainted)
+        if (move.Base.Category == MoveCategory.Stat)
+        {
+            MoveEffects effects = move.Base.Effects;
+            if (effects.Boosts != null)
+            {
+                if (move.Base.Target == MoveTarget.Self)
+                {
+                    sourceUnit.Pokemon.ApplyBooosts(effects.Boosts);
+                }
+                else
+                {
+                    targetUnit.Pokemon.ApplyBooosts(effects.Boosts);
+                    Debug.Log(targetUnit.Pokemon.Attack);
+                }
+            }
+        }
+        else
+        {
+            DamageDetails damageDetails = targetUnit.Pokemon.TakeDamage(move, sourceUnit.Pokemon);
+            yield return targetUnit.Hud.UpdateHP();
+            yield return ShowDamageDetails(damageDetails);
+        }
+       
+
+        if (targetUnit.Pokemon.HP <= 0)
         {
             yield return dialogBox.TypeDialog($"{targetUnit.Pokemon.Base.Name}はたおれた！");
             targetUnit.PlayerFaintAnimation();

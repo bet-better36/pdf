@@ -33,8 +33,8 @@ public class BattleDialogBox : MonoBehaviour
             dialogText.text += letter;
             yield return new WaitForSeconds(1f / letterPerSecond);
         }
-        yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
-        //yield return new WaitForSeconds(messageWaitTime);
+        //yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
+        yield return new WaitForSeconds(messageWaitTime);
     }
 
     public void EnableDialogText(bool enabled)

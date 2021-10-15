@@ -54,7 +54,7 @@ public enum PokemonType
     None,
     Normal,
     Fire,       // 火
-    Water,      
+    Water,
     Electric,   // 電気
     Grass,      // 草
     Ice,        // 氷
@@ -67,8 +67,15 @@ public enum PokemonType
     Rock,       // 岩
     Ghost,      // ゴースト
     Dragon,     // ドラゴン
+}
 
-
+public enum Stat
+{
+    Attack,
+    Defense,
+    SpAttack,
+    SpDefense,
+    Speed,
 }
 
 public class TypeChart

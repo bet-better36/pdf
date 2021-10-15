@@ -29,5 +29,7 @@ MonoBehaviour:
     level: 1
   - _base: {fileID: 11400000, guid: bb038b6fb9b5b46b88ce32eab0077acb, type: 2}
     level: 1
+  - _base: {fileID: 11400000, guid: d59de0e8dfca54fd08823cbf465e1508, type: 2}
+    level: 1
   - _base: {fileID: 11400000, guid: 81622153a0bd94887abefbe12e5689f4, type: 2}
     level: 1
