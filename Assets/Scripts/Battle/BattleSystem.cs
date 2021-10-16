@@ -51,7 +51,19 @@ public class BattleSystem : MonoBehaviour
         dialogBox.SetMoveNames(playerUnit.Pokemon.Moves);
 
         yield return dialogBox.TypeDialog($"やせいの {enemyUnit.Pokemon.Base.Name} があらわれた！");
-        ActionSelection();
+        ChooseFirstTurn();
+    }
+
+    void ChooseFirstTurn()
+    {
+        if (playerUnit.Pokemon.Speed　>= enemyUnit.Pokemon.Speed)
+        {
+            ActionSelection();
+        }
+        else
+        {
+            StartCoroutine(EnemyMove());
+        }
     }
 
     void ActionSelection()
@@ -140,21 +152,7 @@ public class BattleSystem : MonoBehaviour
 
         if (move.Base.Category == MoveCategory.Stat)
         {
-            MoveEffects effects = move.Base.Effects;
-            if (effects.Boosts != null)
-            {
-                if (move.Base.Target == MoveTarget.Self)
-                {
-                    sourceUnit.Pokemon.ApplyBooosts(effects.Boosts);
-                }
-                else
-                {
-                    targetUnit.Pokemon.ApplyBooosts(effects.Boosts);
-                    Debug.Log(targetUnit.Pokemon.Attack);
-                }
-            }
-            yield return ShowStatusChanges(sourceUnit.Pokemon);
-            yield return ShowStatusChanges(targetUnit.Pokemon);
+            yield return RunMoveEffects(move, sourceUnit.Pokemon, targetUnit.Pokemon);
         }
         else
         {
@@ -171,6 +169,25 @@ public class BattleSystem : MonoBehaviour
             yield return new WaitForSeconds(0.5f);
             CheckForBattleOver(targetUnit);
         }
+    }
+
+    IEnumerator RunMoveEffects(Move move, Pokemon source, Pokemon target)
+    {
+        MoveEffects effects = move.Base.Effects;
+        if (effects.Boosts != null)
+        {
+            if (move.Base.Target == MoveTarget.Self)
+            {
+                source.ApplyBooosts(effects.Boosts);
+            }
+            else
+            {
+                target.ApplyBooosts(effects.Boosts);
+                Debug.Log(target.Attack);
+            }
+        }
+        yield return ShowStatusChanges(source);
+        yield return ShowStatusChanges(target);
     }
 
     IEnumerator ShowStatusChanges(Pokemon pokemon)
@@ -353,7 +370,7 @@ public class BattleSystem : MonoBehaviour
 
         if (fainted) //戦闘不能による交代の場合
         {
-            ActionSelection();
+            ChooseFirstTurn();
         }
         else
         {
