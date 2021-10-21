@@ -4254,10 +4254,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pokemons:
-  - _base: {fileID: 11400000, guid: 9286e749f730d452e864d9c7cd767814, type: 2}
-    level: 50
   - _base: {fileID: 11400000, guid: 491b5837ff50d499b8ab1f37a758f96c, type: 2}
     level: 20
+  - _base: {fileID: 11400000, guid: 9286e749f730d452e864d9c7cd767814, type: 2}
+    level: 50
 --- !u!224 &298379578 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7090290070427849248, guid: c447c135aa3064d80a4aec0e87c28229, type: 3}

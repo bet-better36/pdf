@@ -13,7 +13,6 @@ public class CondeitionDB
             {
                 Name = "どく",
                 StartMessege = "はどくになった",
-                //OnAfterTurn = Poison,
                 OnAfterTurn = (Pokemon pokemon) =>
                 {
                     Debug.Log("poisoned!");
@@ -22,15 +21,24 @@ public class CondeitionDB
                 }
                 
             }
-        }
+        },
+        {
+            ConditionID.Burn,
+            new Condition()
+            {
+                Name = "やけど",
+                StartMessege = "はやけどになった",
+                //OnAfterTurn = Poison,
+                OnAfterTurn = (Pokemon pokemon) =>
+                {
+                    Debug.Log("poisoned!");
+                    pokemon.UpdateHP(pokemon.MaxHP/16);
+                    pokemon.StatusChanges.Enqueue($"{pokemon.Base.Name}はやけどのダメージをうけた");
+                }
+
+            }
+        },
     };
-
-    /*
-    static void Poison(Pokemon pokemon)
-    {
-
-    }
-    */
 }
 
 public enum ConditionID
