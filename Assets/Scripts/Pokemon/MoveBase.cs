@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -47,7 +46,10 @@ public enum MoveTarget
 public class MoveEffects
 {
     [SerializeField] List<StatBoost> boosts;
+    [SerializeField] ConditionID status;
+
     public List<StatBoost> Boosts { get => boosts; }
+    public ConditionID Status { get => status; }
 }
 
 [System.Serializable]

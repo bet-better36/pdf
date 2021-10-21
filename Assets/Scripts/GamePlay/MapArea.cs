@@ -14,4 +14,9 @@ public class MapArea : MonoBehaviour
         return pokemons[r];
     }
 
+    public void faf()
+    {
+
+    }
+
 }

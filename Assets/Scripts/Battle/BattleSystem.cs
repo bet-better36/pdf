@@ -148,7 +148,6 @@ public class BattleSystem : MonoBehaviour
         sourceUnit.PlayerAttackAnimation();
         yield return new WaitForSeconds(0.5f);
         targetUnit.PlayerHitAnimation();
-        Debug.Log(targetUnit.Pokemon.Attack);
 
         if (move.Base.Category == MoveCategory.Stat)
         {
@@ -161,6 +160,18 @@ public class BattleSystem : MonoBehaviour
             yield return ShowDamageDetails(damageDetails);
         }
        
+
+        if (targetUnit.Pokemon.HP <= 0)
+        {
+            yield return dialogBox.TypeDialog($"{targetUnit.Pokemon.Base.Name}はたおれた！");
+            targetUnit.PlayerFaintAnimation();
+            yield return new WaitForSeconds(0.5f);
+            CheckForBattleOver(targetUnit);
+        }
+
+        sourceUnit.Pokemon.OnAfterTurn();
+        yield return ShowStatusChanges(sourceUnit.Pokemon);
+        yield return sourceUnit.Hud.UpdateHP();
 
         if (targetUnit.Pokemon.HP <= 0)
         {
@@ -182,9 +193,15 @@ public class BattleSystem : MonoBehaviour
             }
             else
             {
+                Debug.Log(target.Attack);
                 target.ApplyBooosts(effects.Boosts);
                 Debug.Log(target.Attack);
             }
+        }
+
+        if (effects.Status != ConditionID.None)
+        {
+            target.SetStatus(effects.Status);
         }
         yield return ShowStatusChanges(source);
         yield return ShowStatusChanges(target);
@@ -192,9 +209,9 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator ShowStatusChanges(Pokemon pokemon)
     {
-        while (pokemon.StatusChenges.Count > 0)
+        while (pokemon.StatusChanges.Count > 0)
         {
-            string message = pokemon.StatusChenges.Dequeue();
+            string message = pokemon.StatusChanges.Dequeue();
             yield return dialogBox.TypeDialog(message);
         }
     }

@@ -17,7 +17,11 @@ public class Pokemon
     public Dictionary<Stat, int> Stats { get; set; }
     public Dictionary<Stat, int> StatBoosts { get; set; }
 
-    public Queue<string> StatusChenges { get; private set; }
+    public Queue<string> StatusChanges { get; private set; }
+
+    public Condition Status { get; private set; }
+
+    public bool HpChange { get; set; }
 
     Dictionary<Stat, string> statDic = new Dictionary<Stat, string>()
     {
@@ -30,7 +34,7 @@ public class Pokemon
 
     public void Init()
     {
-        StatusChenges = new Queue<string>();
+        StatusChanges = new Queue<string>();
         Moves = new List<Move>();
 
         foreach (LearnableMove learnableMove in Base.LearnableMoves)
@@ -107,11 +111,12 @@ public class Pokemon
             StatBoosts[stat] = Mathf.Clamp(StatBoosts[stat] + boost, -6, 6);
             if (boost > 0)
             {
-                StatusChenges.Enqueue($"{Base.Name}の{statDic[stat]}があがった");
+                StatusChanges.Enqueue($"{Base.Name}の{statDic[stat]}があがった");
             }
             else
             {
-                StatusChenges.Enqueue($"{Base.Name}の{statDic[stat]}がさがった");
+                StatusChanges.Enqueue($"{Base.Name}の{statDic[stat]}がさがった");
+                Debug.Log($"status {statBoost.stat} -{statBoost.boost}");
             }
         }
     }
@@ -172,20 +177,33 @@ public class Pokemon
         float a = (2 * attacker.Level + 10) / 250f;
         float d = a * move.Base.Power * ((float)attack / defense) + 2;
         int damage = Mathf.FloorToInt(d * modifires);
+        Debug.Log($"damage {damage}");
 
-        HP -= damage;
-        if (HP <= 0)
-        {
-            HP = 0;
-            damageDetails.Fainted = true;
-        }
+        UpdateHP(damage);
         return damageDetails;
+    }
+
+    public void UpdateHP(int damage)
+    {
+        HP = Mathf.Clamp(HP - damage, 0, MaxHP);
+        HpChange = true;
     }
 
     public Move GetRandomMove()
     {
         int r = Random.Range(0, Moves.Count);
         return Moves[r];
+    }
+
+    public void SetStatus(ConditionID conditionID)
+    {
+        Status = CondeitionDB.Conditions[conditionID];
+        StatusChanges.Enqueue($"{Base.Name}{Status.StartMessege}");
+    }
+
+    public void OnAfterTurn()
+    {
+        Status?.OnAfterTurn(this);
     }
 }
 public class DamageDetails

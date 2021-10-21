@@ -4638,7 +4638,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
@@ -5956,7 +5956,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1003793280}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!4 &1003793283
 Transform:
   m_ObjectHideFlags: 0
@@ -7954,6 +7954,9 @@ MonoBehaviour:
   nameText: {fileID: 754909062}
   levelText: {fileID: 741977413}
   hpBar: {fileID: 669016885}
+  maxHPText: {fileID: 1949588815}
+  currentHPText: {fileID: 1063424255}
+  Ease_Type: 0
 --- !u!1 &1756906960
 GameObject:
   m_ObjectHideFlags: 0
@@ -8466,6 +8469,9 @@ MonoBehaviour:
   nameText: {fileID: 1654270763}
   levelText: {fileID: 972313296}
   hpBar: {fileID: 1756906962}
+  maxHPText: {fileID: 453616181}
+  currentHPText: {fileID: 1463798774}
+  Ease_Type: 1
 --- !u!1 &1949588813
 GameObject:
   m_ObjectHideFlags: 0
