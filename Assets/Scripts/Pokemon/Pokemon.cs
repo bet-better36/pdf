@@ -201,9 +201,18 @@ public class Pokemon
         StatusChanges.Enqueue($"{Base.Name}{Status.StartMessege}");
     }
 
+    public bool OnBeforeMove()
+    {
+        if (Status?.OnBeforeMove != null)
+        {
+            return Status.OnBeforeMove(this);
+        }
+        return true;
+    }
+
     public void OnAfterTurn()
     {
-        Status?.OnAfterTurn(this);
+        Status?.OnAfterTurn?.Invoke(this);
     }
 }
 public class DamageDetails

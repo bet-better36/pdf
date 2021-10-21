@@ -15,11 +15,9 @@ public class CondeitionDB
                 StartMessege = "はどくになった",
                 OnAfterTurn = (Pokemon pokemon) =>
                 {
-                    Debug.Log("poisoned!");
                     pokemon.UpdateHP(pokemon.MaxHP/8);
                     pokemon.StatusChanges.Enqueue($"{pokemon.Base.Name}はどくのダメージをうけた");
                 }
-                
             }
         },
         {
@@ -28,14 +26,28 @@ public class CondeitionDB
             {
                 Name = "やけど",
                 StartMessege = "はやけどになった",
-                //OnAfterTurn = Poison,
                 OnAfterTurn = (Pokemon pokemon) =>
                 {
-                    Debug.Log("poisoned!");
                     pokemon.UpdateHP(pokemon.MaxHP/16);
                     pokemon.StatusChanges.Enqueue($"{pokemon.Base.Name}はやけどのダメージをうけた");
                 }
-
+            }
+        },
+        {
+            ConditionID.Paralysis,
+            new Condition()
+            {
+                Name = "まひ",
+                StartMessege = "はまひになった",
+                OnBeforeMove = (Pokemon pokemon) =>
+                {
+                    if (UnityEngine.Random.Range(1,5) == 1)
+                    {
+                        pokemon.StatusChanges.Enqueue($"{pokemon.Base.Name}はしびれてうごけない");
+                        return false;
+                    }
+                    return true;
+                }
             }
         },
     };
