@@ -201,6 +201,11 @@ public class Pokemon
         StatusChanges.Enqueue($"{Base.Name}{Status.StartMessege}");
     }
 
+    public void CureStatus()
+    {
+        Status = null;
+    }
+
     public bool OnBeforeMove()
     {
         if (Status?.OnBeforeMove != null)

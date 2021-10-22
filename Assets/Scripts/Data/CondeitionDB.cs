@@ -50,6 +50,25 @@ public class CondeitionDB
                 }
             }
         },
+        {
+            ConditionID.Freeze,
+            new Condition()
+            {
+                Name = "こおり",
+                StartMessege = "はこおった",
+                OnBeforeMove = (Pokemon pokemon) =>
+                {
+                    if (UnityEngine.Random.Range(1,5) == 1)
+                    {
+                        pokemon.CureStatus();
+                        pokemon.StatusChanges.Enqueue($"{pokemon.Base.Name}のこおりはとけた");
+                        return true;
+                    }
+                    pokemon.StatusChanges.Enqueue($"{pokemon.Base.Name}はこおってしまっていてうごけない");
+                    return false;
+                }
+            }
+        },
     };
 }
 
