@@ -39,10 +39,11 @@ public class BattleHud : MonoBehaviour
         if (_pokemon.HpChange)
         {
             yield return hpBar.SetHPSmooth((float)_pokemon.HP / _pokemon.MaxHP);
-            _pokemon.HpChange = false;
+            DOTween.To(() => tHP, x => tHP = x, _pokemon.HP, 100f).SetEase(Ease_Type);
+            currentHPText.text = _pokemon.HP.ToString();
+
+            //currentHPText.text = tHP.ToString();
+            //_pokemon.HpChange = false;
         }
-        currentHPText.text = _pokemon.HP.ToString();
-        //DOTween.To(() => tHP, x => tHP = x, _pokemon.HP, 100f).SetEase(Ease_Type);
-        //currentHPText.text = tHP.ToString();
     }
 }

@@ -69,6 +69,29 @@ public class CondeitionDB
                 }
             }
         },
+        {
+            ConditionID.Sleep,
+            new Condition()
+            {
+                Name = "ねむり",
+                StartMessege = "はねむった",
+                OnStart = (Pokemon pokemon) =>
+                {
+                    pokemon.SleepTime = UnityEngine.Random.Range(1,4);
+                },
+                OnBeforeMove = (Pokemon pokemon) =>
+                {
+                    if (pokemon.SleepTime <= 0)
+                    {
+                        pokemon.CureStatus();
+                        pokemon.StatusChanges.Enqueue($"{pokemon.Base.Name}はめをさました");
+                    }
+                    pokemon.SleepTime--;
+                    pokemon.StatusChanges.Enqueue($"{pokemon.Base.Name}はねむっている");
+                    return false;
+                }
+            }
+        },
     };
 }
 

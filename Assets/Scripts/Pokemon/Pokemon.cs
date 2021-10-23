@@ -20,6 +20,7 @@ public class Pokemon
     public Queue<string> StatusChanges { get; private set; }
 
     public Condition Status { get; private set; }
+    public int SleepTime { get; set; }
 
     public bool HpChange { get; set; }
 
@@ -198,6 +199,7 @@ public class Pokemon
     public void SetStatus(ConditionID conditionID)
     {
         Status = CondeitionDB.Conditions[conditionID];
+        Status?.OnStart?.Invoke(this);
         StatusChanges.Enqueue($"{Base.Name}{Status.StartMessege}");
     }
 
