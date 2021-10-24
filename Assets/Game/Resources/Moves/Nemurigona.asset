@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 187b60e04839449b49775c03d9876552, type: 3}
   m_Name: Nemurigona
   m_EditorClassIdentifier: 
-  name: "\u3069\u304F\u306E\u3053\u306A"
+  name: "\u306D\u3080\u308A\u3054\u306A"
   description: 
-  type: 8
+  type: 5
   power: 0
   accracy: 0
   pp: 20
@@ -22,4 +22,4 @@ MonoBehaviour:
   target: 0
   effects:
     boosts: []
-    status: 1
+    status: 3

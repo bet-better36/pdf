@@ -11,6 +11,7 @@ public class CondeitionDB
             ConditionID.Poison,
             new Condition()
             {
+                Id = ConditionID.Poison,
                 Name = "どく",
                 StartMessege = "はどくになった",
                 OnAfterTurn = (Pokemon pokemon) =>
@@ -24,6 +25,7 @@ public class CondeitionDB
             ConditionID.Burn,
             new Condition()
             {
+                Id = ConditionID.Burn,
                 Name = "やけど",
                 StartMessege = "はやけどになった",
                 OnAfterTurn = (Pokemon pokemon) =>
@@ -37,6 +39,7 @@ public class CondeitionDB
             ConditionID.Paralysis,
             new Condition()
             {
+                Id = ConditionID.Paralysis,
                 Name = "まひ",
                 StartMessege = "はまひになった",
                 OnBeforeMove = (Pokemon pokemon) =>
@@ -54,6 +57,7 @@ public class CondeitionDB
             ConditionID.Freeze,
             new Condition()
             {
+                Id = ConditionID.Freeze,
                 Name = "こおり",
                 StartMessege = "はこおった",
                 OnBeforeMove = (Pokemon pokemon) =>
@@ -73,6 +77,7 @@ public class CondeitionDB
             ConditionID.Sleep,
             new Condition()
             {
+                Id = ConditionID.Sleep,
                 Name = "ねむり",
                 StartMessege = "はねむった",
                 OnStart = (Pokemon pokemon) =>
