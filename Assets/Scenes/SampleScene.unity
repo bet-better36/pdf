@@ -4358,8 +4358,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   highlightColor: {r: 0, g: 0.12997723, b: 1, a: 1}
-  letterPerSecond: 45
-  messageWaitTime: 0.6
+  letterPerSecond: 30
+  messageWaitTime: 0.8
   dialogText: {fileID: 706439211}
   actionSelector: {fileID: 1551101452}
   moveSelector: {fileID: 1356660882}
@@ -5182,7 +5182,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pokemons:
-  - _base: {fileID: 11400000, guid: b867f731ef9334f89998c1453fb49b8b, type: 2}
+  - _base: {fileID: 11400000, guid: 593c457557b8b41c4b8ae2c024cd41b1, type: 2}
     level: 50
 --- !u!1 &925505222
 GameObject:

@@ -82,17 +82,50 @@ public class CondeitionDB
                 StartMessege = "はねむった",
                 OnStart = (Pokemon pokemon) =>
                 {
-                    pokemon.SleepTime = UnityEngine.Random.Range(1,4);
+                    pokemon.StatusTime = UnityEngine.Random.Range(1,4);
                 },
                 OnBeforeMove = (Pokemon pokemon) =>
                 {
-                    if (pokemon.SleepTime <= 0)
+                    if (pokemon.StatusTime <= 0)
                     {
                         pokemon.CureStatus();
                         pokemon.StatusChanges.Enqueue($"{pokemon.Base.Name}はめをさました");
                     }
-                    pokemon.SleepTime--;
+                    pokemon.StatusTime--;
                     pokemon.StatusChanges.Enqueue($"{pokemon.Base.Name}はねむっている");
+                    return false;
+                }
+            }
+        },
+        {
+            ConditionID.Confusion,
+            new Condition()
+            {
+                Id = ConditionID.Confusion,
+                Name = "こんらん",
+                StartMessege = "はこんらんした",
+                OnStart = (Pokemon pokemon) =>
+                {
+                    pokemon.VolatileStatusTime = UnityEngine.Random.Range(1,5);
+                },
+                OnBeforeMove = (Pokemon pokemon) =>
+                {
+                    if (pokemon.VolatileStatusTime <= 0)
+                    {
+                        pokemon.CureVolatileStatus();
+                        pokemon.StatusChanges.Enqueue($"{pokemon.Base.Name}はこんらんがとけた");
+                        return true;
+                    }
+                    pokemon.VolatileStatusTime--;
+                    pokemon.StatusChanges.Enqueue($"{pokemon.Base.Name}はこんらんしている");
+                    Debug.Log(pokemon.HP);
+                    if (UnityEngine.Random.Range(1,3) == 1)
+                    {
+                        return true;
+                    }
+                    pokemon.StatusChanges.Enqueue($"{pokemon.Base.Name}はわけもわからず\nじぶんをこうげきした");
+                    pokemon.UpdateHP(pokemon.MaxHP/8);
+                    Debug.Log(pokemon.HP);
                     return false;
                 }
             }
@@ -108,4 +141,5 @@ public enum ConditionID
     Sleep,
     Paralysis,
     Freeze,
+    Confusion,
 }

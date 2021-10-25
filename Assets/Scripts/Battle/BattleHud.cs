@@ -63,22 +63,16 @@ public class BattleHud : MonoBehaviour
         }
     }
 
-
-    public void HPTextAnimation()
-    {
-        //DOTween.To(() => tHP, x => tHP = x, 4000, 1f).SetEase(Ease_Type);
-    }
-
     public IEnumerator UpdateHP()
     {
         if (_pokemon.HpChange)
         {
             yield return hpBar.SetHPSmooth((float)_pokemon.HP / _pokemon.MaxHP);
-            DOTween.To(() => tHP, x => tHP = x, _pokemon.HP, 100f).SetEase(Ease_Type);
+            //DOTween.To(() => tHP, x => tHP = x, _pokemon.HP, 100f).SetEase(Ease_Type);
             currentHPText.text = _pokemon.HP.ToString();
 
             //currentHPText.text = tHP.ToString();
-            //_pokemon.HpChange = false;
+            _pokemon.HpChange = false;
         }
     }
 }

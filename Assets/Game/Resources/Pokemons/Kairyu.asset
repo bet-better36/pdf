@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c79eb32a7efb44e4babffc9b72c116aa, type: 3}
+  m_Name: Kairyu
+  m_EditorClassIdentifier: 
+  name: "\u30AB\u30A4\u30EA\u30E5\u30FC"
+  description: 
+  frontSprite: {fileID: 21300000, guid: 143a24555a94c46d9b888b7959f59daa, type: 3}
+  backSprite: {fileID: 21300000, guid: 143a24555a94c46d9b888b7959f59daa, type: 3}
+  type1: 15
+  type2: 10
+  maxHP: 50
+  attack: 50
+  defense: 50
+  spAttack: 50
+  spDefense: 50
+  speed: 50
+  learnableMoves:
+  - _base: {fileID: 11400000, guid: 89bf8bd215478490db15dd5ac00f4890, type: 2}
+    level: 1

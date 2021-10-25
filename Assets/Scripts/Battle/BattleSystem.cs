@@ -143,10 +143,11 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator RunMove(BattleUnit sourceUnit, BattleUnit targetUnit, Move move)
     {
-        bool canmove = sourceUnit.Pokemon.OnBeforeMove();
+        bool canRunMove = sourceUnit.Pokemon.OnBeforeMove();
         yield return ShowStatusChanges(sourceUnit.Pokemon);
-        if (!canmove)
+        if (!canRunMove)
         {
+            yield return targetUnit.Hud.UpdateHP();
             yield break;
         }
         move.PP--;
@@ -199,9 +200,7 @@ public class BattleSystem : MonoBehaviour
             }
             else
             {
-                Debug.Log(target.Attack);
                 target.ApplyBooosts(effects.Boosts);
-                Debug.Log(target.Attack);
             }
         }
 
@@ -209,6 +208,11 @@ public class BattleSystem : MonoBehaviour
         {
             target.SetStatus(effects.Status);
         }
+        if (effects.VolatileStatus != ConditionID.None)
+        {
+            target.SetVolatileStatus(effects.VolatileStatus);
+        }
+
         yield return ShowStatusChanges(source);
         yield return ShowStatusChanges(target);
     }
