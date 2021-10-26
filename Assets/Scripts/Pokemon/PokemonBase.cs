@@ -60,13 +60,18 @@ public enum PokemonType
     Ice,        // 氷
     Fighting,   // 格闘
     Poison,     // 毒
-    Ground,     // 地面
-    Flying,     // 飛行
-    Psychic,    // エスパー
-    Bug,        // 虫
-    Rock,       // 岩
-    Ghost,      // ゴースト
-    Dragon,     // ドラゴン
+
+    //以下はタイプ相性未実装
+    //Ground,     // 地面
+    //Flying,     // 飛行
+    //Psychic,    // エスパー
+    //Bug,        // 虫
+    //Rock,       // 岩
+    //Ghost,      // ゴースト
+    //Dragon,     // ドラゴン
+                    //あく
+                    //はがね
+                    //フェアリー
 }
 
 public enum Stat
@@ -76,6 +81,8 @@ public enum Stat
     SpAttack,
     SpDefense,
     Speed,
+    Accuracy,
+    Evasion,
 }
 
 public class TypeChart

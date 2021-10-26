@@ -16,5 +16,11 @@ MonoBehaviour:
   description: "\u3048\u3048\u3048"
   type: 1
   power: 40
-  accracy: 100
+  accuracy: 100
   pp: 40
+  category: 0
+  target: 0
+  effects:
+    boosts: []
+    status: 0
+    volatileStatus: 0

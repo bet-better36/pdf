@@ -152,28 +152,36 @@ public class BattleSystem : MonoBehaviour
         }
         move.PP--;
         yield return dialogBox.TypeDialog($"{sourceUnit.Pokemon.Base.Name}は{move.Base.Name}をつかった");
-        sourceUnit.PlayerAttackAnimation();
-        yield return new WaitForSeconds(0.5f);
-        targetUnit.PlayerHitAnimation();
 
-        if (move.Base.Category == MoveCategory.Stat)
+        if (CheckIfMoveHits(move, sourceUnit.Pokemon, targetUnit.Pokemon))
         {
-            yield return RunMoveEffects(move, sourceUnit.Pokemon, targetUnit.Pokemon);
+            sourceUnit.PlayerAttackAnimation();
+            yield return new WaitForSeconds(0.5f);
+            targetUnit.PlayerHitAnimation();
+
+            if (move.Base.Category == MoveCategory.Stat)
+            {
+                yield return RunMoveEffects(move, sourceUnit.Pokemon, targetUnit.Pokemon);
+            }
+            else
+            {
+                DamageDetails damageDetails = targetUnit.Pokemon.TakeDamage(move, sourceUnit.Pokemon);
+                yield return targetUnit.Hud.UpdateHP();
+                yield return ShowDamageDetails(damageDetails);
+            }
+
+
+            if (targetUnit.Pokemon.HP <= 0)
+            {
+                yield return dialogBox.TypeDialog($"{targetUnit.Pokemon.Base.Name}はたおれた！");
+                targetUnit.PlayerFaintAnimation();
+                yield return new WaitForSeconds(0.5f);
+                CheckForBattleOver(targetUnit);
+            }
         }
         else
         {
-            DamageDetails damageDetails = targetUnit.Pokemon.TakeDamage(move, sourceUnit.Pokemon);
-            yield return targetUnit.Hud.UpdateHP();
-            yield return ShowDamageDetails(damageDetails);
-        }
-       
-
-        if (targetUnit.Pokemon.HP <= 0)
-        {
-            yield return dialogBox.TypeDialog($"{targetUnit.Pokemon.Base.Name}はたおれた！");
-            targetUnit.PlayerFaintAnimation();
-            yield return new WaitForSeconds(0.5f);
-            CheckForBattleOver(targetUnit);
+            yield return dialogBox.TypeDialog($"{sourceUnit.Pokemon.Base.Name}のこうげきは　はずれた");
         }
 
         sourceUnit.Pokemon.OnAfterTurn();
@@ -215,6 +223,36 @@ public class BattleSystem : MonoBehaviour
 
         yield return ShowStatusChanges(source);
         yield return ShowStatusChanges(target);
+    }
+
+    bool CheckIfMoveHits(Move move, Pokemon source, Pokemon target)
+    {
+        float moveAccuracy = move.Base.Accuracy;
+
+        int accuracy = source.StatBoosts[Stat.Accuracy];
+        int evasion = target.StatBoosts[Stat.Evasion];
+
+        float[] boostValue = new float[] { 1f, 4f/3f, 5f/3f, 2f, 7f/3f, 8f/3f, 3f };
+
+        if (accuracy > 0)
+        {
+            moveAccuracy *= boostValue[accuracy];
+        }
+        else
+        {
+            moveAccuracy /= boostValue[-accuracy];
+        }
+
+        if (evasion > 0)
+        {
+            moveAccuracy /= boostValue[evasion];
+        }
+        else
+        {
+            moveAccuracy *= boostValue[-evasion];
+        }
+
+        return Random.Range(1, 101) <= moveAccuracy;
     }
 
     IEnumerator ShowStatusChanges(Pokemon pokemon)

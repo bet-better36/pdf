@@ -16,10 +16,11 @@ MonoBehaviour:
   description: "\t"
   type: 1
   power: 0
-  accracy: 0
+  accuracy: 100
   pp: 10
   category: 2
   target: 0
   effects:
     boosts: []
     status: 5
+    volatileStatus: 0

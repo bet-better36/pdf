@@ -16,10 +16,11 @@ MonoBehaviour:
   description: 
   type: 5
   power: 0
-  accracy: 0
+  accuracy: 100
   pp: 30
   category: 2
   target: 0
   effects:
     boosts: []
     status: 4
+    volatileStatus: 0

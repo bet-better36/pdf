@@ -11,7 +11,7 @@ public class MoveBase : ScriptableObject
 
     [SerializeField] PokemonType type;
     [SerializeField] int power;
-    [SerializeField] int accracy; //命中率
+    [SerializeField] int accuracy; //命中率
     [SerializeField] int pp;
 
     [SerializeField] MoveCategory category;
@@ -22,7 +22,7 @@ public class MoveBase : ScriptableObject
     public string Description { get => description; }
     public PokemonType Type { get => type; }
     public int Power { get => power; }
-    public int Accracy { get => accracy; }
+    public int Accuracy { get => accuracy; }
     public int PP { get => pp; }
     public MoveCategory Category { get => category; set => category = value; }
     public MoveTarget Target { get => target; }

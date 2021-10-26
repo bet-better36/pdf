@@ -34,6 +34,8 @@ public class Pokemon
         {Stat.SpAttack, "とくこう"},
         {Stat.SpDefense, "とくぼう"},
         {Stat.Speed, "すばやさ"},
+        {Stat.Accuracy, "めいちゅうりつ"},
+        {Stat.Evasion, "かいひりつ"},
     };
 
     public System.Action OnStatusChanged;
@@ -73,6 +75,8 @@ public class Pokemon
             {Stat.SpAttack, 0 },
             {Stat.SpDefense, 0 },
             {Stat.Speed, 0 },
+            {Stat.Accuracy, 0 },
+            {Stat.Evasion, 0 },
         };
     }
 

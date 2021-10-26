@@ -16,7 +16,7 @@ MonoBehaviour:
   description: 
   type: 1
   power: 0
-  accracy: 0
+  accuracy: 100
   pp: 20
   category: 2
   target: 0
@@ -26,3 +26,5 @@ MonoBehaviour:
       boost: -6
     - stat: 2
       boost: -6
+    status: 0
+    volatileStatus: 0
