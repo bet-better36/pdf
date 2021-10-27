@@ -17,6 +17,7 @@ public class MoveBase : ScriptableObject
     [SerializeField] MoveCategory category;
     [SerializeField] MoveTarget target;
     [SerializeField] MoveEffects effects;
+    [SerializeField] List<SecondaryEffects> secondaries;
 
     public string Name { get => name; }
     public string Description { get => description; }
@@ -27,6 +28,7 @@ public class MoveBase : ScriptableObject
     public MoveCategory Category { get => category; set => category = value; }
     public MoveTarget Target { get => target; }
     public MoveEffects Effects { get => effects; }
+    public List<SecondaryEffects> Secondaries { get => secondaries; }
 }
 
 public enum MoveCategory
@@ -52,6 +54,16 @@ public class MoveEffects
     public List<StatBoost> Boosts { get => boosts; }
     public ConditionID Status { get => status; }
     public ConditionID VolatileStatus { get => volatileStatus; }
+}
+
+[System.Serializable]
+public class SecondaryEffects : MoveEffects
+{
+    [SerializeField] int chance;
+    [SerializeField] MoveTarget target;
+
+    public int Chance { get => chance; }
+    public MoveTarget Target { get => target; }
 }
 
 [System.Serializable]
