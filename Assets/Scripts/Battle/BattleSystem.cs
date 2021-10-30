@@ -8,7 +8,7 @@ public enum BattleState
     Start,
     ActionSelection,    //行動選択
     MoveSelection,      //技選択
-    PerformMove,        //技の実行
+    RunnigTurn,        //技の実行
     Busy,               //処理中
     PartyScreen,        //ポケモン選択
     BattleOver,         //バトル終了
@@ -51,20 +51,10 @@ public class BattleSystem : MonoBehaviour
         dialogBox.SetMoveNames(playerUnit.Pokemon.Moves);
 
         yield return dialogBox.TypeDialog($"やせいの {enemyUnit.Pokemon.Base.Name} があらわれた！");
-        ChooseFirstTurn();
+        ActionSelection();
     }
 
-    void ChooseFirstTurn()
-    {
-        if (playerUnit.Pokemon.Speed　>= enemyUnit.Pokemon.Speed)
-        {
-            ActionSelection();
-        }
-        else
-        {
-            StartCoroutine(EnemyMove());
-        }
-    }
+    
 
     void ActionSelection()
     {
@@ -117,25 +107,37 @@ public class BattleSystem : MonoBehaviour
         OnBattleOver();
     }
 
-    IEnumerator PlayerMove()
+    IEnumerator RunTurns()
     {
-        state = BattleState.PerformMove;
-        Move move = playerUnit.Pokemon.Moves[currentMove];
-        yield return RunMove(playerUnit, enemyUnit, move);
+        state = BattleState.RunnigTurn;
+        playerUnit.Pokemon.CurrentMove = playerUnit.Pokemon.Moves[currentMove];
+        enemyUnit.Pokemon.CurrentMove = enemyUnit.Pokemon.GetRandomMove();
 
-        if (state == BattleState.PerformMove)
+        BattleUnit firstUnit = playerUnit;
+        BattleUnit secondUnit = enemyUnit;
+        if (playerUnit.Pokemon.Speed < enemyUnit.Pokemon.Speed)
         {
-            StartCoroutine(EnemyMove());
+            firstUnit = enemyUnit;
+            secondUnit = playerUnit;
         }
-    }
 
-    IEnumerator EnemyMove()
-    {
-        state = BattleState.PerformMove;
-        Move move = enemyUnit.Pokemon.GetRandomMove();
+        yield return RunMove(firstUnit, secondUnit, firstUnit.Pokemon.CurrentMove);
+        yield return RunAfterTurn(firstUnit);
+        if (state == BattleState.BattleOver)
+        {
+            yield break;
+        }
 
-        yield return RunMove(enemyUnit, playerUnit, move);
-        if (state == BattleState.PerformMove)
+        if(secondUnit.Pokemon.HP > 0)
+        {
+            yield return RunMove(secondUnit, firstUnit, secondUnit.Pokemon.CurrentMove);
+            yield return RunAfterTurn(secondUnit);
+            if (state == BattleState.BattleOver)
+            {
+                yield break;
+            }
+        }
+        if (state != BattleState.BattleOver)
         {
             ActionSelection();
         }
@@ -181,7 +183,6 @@ public class BattleSystem : MonoBehaviour
                 }
             }
 
-
             if (targetUnit.Pokemon.HP <= 0)
             {
                 yield return dialogBox.TypeDialog($"{targetUnit.Pokemon.Base.Name}はたおれた！");
@@ -195,16 +196,27 @@ public class BattleSystem : MonoBehaviour
             yield return dialogBox.TypeDialog($"{sourceUnit.Pokemon.Base.Name}のこうげきは　はずれた");
         }
 
+        
+    }
+
+    IEnumerator RunAfterTurn(BattleUnit sourceUnit)
+    {
+        if (state == BattleState.BattleOver)
+        {
+            yield break;
+        }
+
+        yield return new WaitUntil(() => state == BattleState.RunnigTurn);
         sourceUnit.Pokemon.OnAfterTurn();
         yield return ShowStatusChanges(sourceUnit.Pokemon);
         yield return sourceUnit.Hud.UpdateHP();
 
-        if (targetUnit.Pokemon.HP <= 0)
+        if (sourceUnit.Pokemon.HP <= 0)
         {
-            yield return dialogBox.TypeDialog($"{targetUnit.Pokemon.Base.Name}はたおれた！");
-            targetUnit.PlayerFaintAnimation();
+            yield return dialogBox.TypeDialog($"{sourceUnit.Pokemon.Base.Name}はたおれた！");
+            sourceUnit.PlayerFaintAnimation();
             yield return new WaitForSeconds(0.5f);
-            CheckForBattleOver(targetUnit);
+            CheckForBattleOver(sourceUnit);
         }
     }
 
@@ -368,7 +380,8 @@ public class BattleSystem : MonoBehaviour
         {
             dialogBox.EnableMoveSelector(false);
             dialogBox.EnableDialogText(true);
-            StartCoroutine(PlayerMove());
+            //StartCoroutine(PlayerMove());
+            StartCoroutine(RunTurns());
         }
         if (Input.GetKeyDown(KeyCode.LeftCommand))
         {
@@ -445,11 +458,11 @@ public class BattleSystem : MonoBehaviour
 
         if (fainted) //戦闘不能による交代の場合
         {
-            ChooseFirstTurn();
+            //ChooseFirstTurn();
         }
         else
         {
-            StartCoroutine(EnemyMove());
+            //StartCoroutine(EnemyMove());
         }
     }
 }
