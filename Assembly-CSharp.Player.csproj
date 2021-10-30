@@ -60,6 +60,8 @@
     <Compile Include="Assets/Scripts/GamePlay/MapArea.cs" />
     <Compile Include="Assets/Scripts/Battle/PartyScreen.cs" />
     <Compile Include="Assets/Scripts/Battle/HPBar.cs" />
+    <Compile Include="Assets/Scripts/Pokemon/Condition.cs" />
+    <Compile Include="Assets/Scripts/Data/CondeitionDB.cs" />
     <Compile Include="Assets/Scripts/Battle/BattleDialogBox.cs" />
     <Compile Include="Assets/Scripts/Pokemon/PokemonBase.cs" />
     <Compile Include="Assets/Scripts/Battle/BattleSystem.cs" />
@@ -71,8 +73,6 @@
     <Compile Include="Assets/Scripts/Pokemon/MoveBase.cs" />
     <Compile Include="Assets/Scripts/Battle/BattleUnit.cs" />
     <Compile Include="Assets/Scripts/Pokemon/Pokemon.cs" />
-    <Compile Include="Assets/Scripts/Pokemon/Condition.cs" />
-    <Compile Include="Assets/Scripts/Data/CondeitionDB.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets/Art/Fonts/README.txt" />
