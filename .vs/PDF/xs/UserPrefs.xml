@@ -1,17 +1,13 @@
 ﻿<Properties StartupConfiguration="{39BEAC8F-C64B-DE38-E302-56CF48842200}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Library/PackageCache/com.unity.collab-proxy@1.11.2/Editor/PlasticSCM/Configuration/CloudEdition/Welcome/CreateOrganizationPanel.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Battle/BattleSystem.cs">
     <Files>
-      <File FileName="Assets/Scripts/Pokemon/Pokemon.cs" Line="213" Column="17" />
-      <File FileName="Assets/Scripts/Battle/BattleSystem.cs" Line="160" Column="1" />
+      <File FileName="Assets/Scripts/Pokemon/Pokemon.cs" Line="87" Column="26" />
+      <File FileName="Assets/Scripts/Battle/BattleSystem.cs" Line="203" Column="1" />
+      <File FileName="Assets/Scripts/Pokemon/MoveBase.cs" Line="34" Column="43" />
       <File FileName="Assets/Scripts/Pokemon/Condition.cs" Line="8" Column="38" />
       <File FileName="Assets/Scripts/Data/CondeitionDB.cs" Line="126" Column="36" />
       <File FileName="Assets/Scripts/Pokemon/Move.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Pokemon/MoveBase.cs" Line="32" Column="2" />
-      <File FileName="Assets/Scripts/Battle/BattleHud.cs" Line="64" Column="6" />
-      <File FileName="Assets/Scripts/Pokemon/PokemonBase.cs" Line="111" Column="1" />
-      <File FileName="Assets/Scripts/GameController.cs" Line="50" Column="1" />
       <File FileName="Assets/Scripts/Battle/BattleDialogBox.cs" Line="53" Column="30" />
-      <File FileName="Library/PackageCache/com.unity.collab-proxy@1.11.2/Editor/PlasticSCM/Configuration/CloudEdition/Welcome/CreateOrganizationPanel.cs" Line="290" Column="23" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">

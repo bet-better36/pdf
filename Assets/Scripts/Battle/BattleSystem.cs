@@ -123,9 +123,25 @@ public class BattleSystem : MonoBehaviour
             playerUnit.Pokemon.CurrentMove = playerUnit.Pokemon.Moves[currentMove];
             enemyUnit.Pokemon.CurrentMove = enemyUnit.Pokemon.GetRandomMove();
 
+            bool playerGosefirst = true;
             BattleUnit firstUnit = playerUnit;
             BattleUnit secondUnit = enemyUnit;
-            if (playerUnit.Pokemon.Speed < enemyUnit.Pokemon.Speed)
+            int playerMovePriority = playerUnit.Pokemon.CurrentMove.Base.Priority;
+            int enemyMovePriority = enemyUnit.Pokemon.CurrentMove.Base.Priority;
+
+            if (playerMovePriority < enemyMovePriority)
+            {
+                playerGosefirst = false;
+            }
+            else if(playerMovePriority == enemyMovePriority)
+            {
+                if (playerUnit.Pokemon.Speed < enemyUnit.Pokemon.Speed)
+                {
+                    playerGosefirst = false;
+                }
+            }
+
+            if (playerGosefirst == false)
             {
                 firstUnit = enemyUnit;
                 secondUnit = playerUnit;
@@ -279,6 +295,10 @@ public class BattleSystem : MonoBehaviour
 
     bool CheckIfMoveHits(Move move, Pokemon source, Pokemon target)
     {
+        if (move.Base.AnyHit)
+        {
+            return true;
+        }
         float moveAccuracy = move.Base.Accuracy;
 
         int accuracy = source.StatBoosts[Stat.Accuracy];
@@ -409,6 +429,12 @@ public class BattleSystem : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            Move move = playerUnit.Pokemon.Moves[currentMove];
+            if (move.PP == 0)
+            {
+                return;
+            }
+
             dialogBox.EnableMoveSelector(false);
             dialogBox.EnableDialogText(true);
             //StartCoroutine(PlayerMove());

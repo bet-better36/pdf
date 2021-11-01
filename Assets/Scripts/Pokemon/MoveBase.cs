@@ -12,7 +12,10 @@ public class MoveBase : ScriptableObject
     [SerializeField] PokemonType type;
     [SerializeField] int power;
     [SerializeField] int accuracy; //命中率
+    [SerializeField] bool anyHit; //命中率
     [SerializeField] int pp;
+    [SerializeField] int priority;
+
 
     [SerializeField] MoveCategory category;
     [SerializeField] MoveTarget target;
@@ -29,6 +32,8 @@ public class MoveBase : ScriptableObject
     public MoveTarget Target { get => target; }
     public MoveEffects Effects { get => effects; }
     public List<SecondaryEffects> Secondaries { get => secondaries; }
+    public int Priority { get => priority; }
+    public bool AnyHit { get => anyHit; set => anyHit = value; }
 }
 
 public enum MoveCategory

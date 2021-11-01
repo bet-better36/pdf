@@ -7809,7 +7809,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pokemons:
-  - _base: {fileID: 11400000, guid: 593c457557b8b41c4b8ae2c024cd41b1, type: 2}
+  - _base: {fileID: 11400000, guid: 5dcfb0dc68f23413d954cbfdc9e6f194, type: 2}
     level: 50
 --- !u!1 &854805999
 GameObject:

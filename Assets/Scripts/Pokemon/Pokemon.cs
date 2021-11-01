@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 [System.Serializable]
 public class Pokemon
@@ -206,6 +207,7 @@ public class Pokemon
 
     public Move GetRandomMove()
     {
+        List<Move> moveWithPP = Moves.Where(x => x.PP > 0).ToList();
         int r = Random.Range(0, Moves.Count);
         return Moves[r];
     }
