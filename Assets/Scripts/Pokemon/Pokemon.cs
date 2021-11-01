@@ -131,7 +131,7 @@ public class Pokemon
             else
             {
                 StatusChanges.Enqueue($"{Base.Name}の{statDic[stat]}がさがった");
-                Debug.Log($"status {statBoost.stat} -{statBoost.boost}");
+                Debug.Log($"stat {Base.Name}'s {statBoost.stat} is -{statBoost.boost}");
             }
         }
     }
