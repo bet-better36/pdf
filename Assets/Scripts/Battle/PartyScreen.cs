@@ -7,7 +7,7 @@ public class PartyScreen : MonoBehaviour
 {
     [SerializeField] Text messageText;
     PartyMemberUI[] memberSlots;
-
+    
     List<Pokemon> pokemons;
 
     public void Init()

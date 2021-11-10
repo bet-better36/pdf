@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     Animator animator;
 
     [SerializeField] LayerMask solidObjectsLayer;
+    [SerializeField] LayerMask interactableLayer;
     [SerializeField] LayerMask longGrassLayer;
     public UnityAction OnEncouted;
     //[SerializeField] GameController gameController;
@@ -72,8 +73,7 @@ public class PlayerController : MonoBehaviour
 
     bool IsWalkbale(Vector2 targetPos)
     {
-        bool hit = Physics2D.OverlapCircle(targetPos, 0.2f, solidObjectsLayer);
-        return !hit;
+        return Physics2D.OverlapCircle(targetPos, 0.2f, solidObjectsLayer | interactableLayer) == false;    
     }
 
     void CheckForEncounters()
@@ -82,7 +82,6 @@ public class PlayerController : MonoBehaviour
         {
             if (Random.Range(0, 100) < encounterRate)
             {
-                Debug.Log("モンスターが現れた");
                 //gameController.StartBatlle();
                 OnEncouted();
                 animator.SetBool("isMoving", false);

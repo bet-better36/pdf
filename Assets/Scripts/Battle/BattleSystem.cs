@@ -11,6 +11,7 @@ public enum BattleState
     RunnigTurn,        //技の実行
     Busy,               //処理中
     PartyScreen,        //ポケモン選択
+    StatusScreen,
     BattleOver,         //バトル終了
 }
 
@@ -29,6 +30,7 @@ public class BattleSystem : MonoBehaviour
 
     [SerializeField] BattleDialogBox dialogBox;
     [SerializeField] PartyScreen partyScreen;
+    [SerializeField] StatusScreen statusScreen;
 
     //[SerializeField] GameController gameController;
     public UnityAction OnBattleOver;
@@ -41,6 +43,18 @@ public class BattleSystem : MonoBehaviour
 
     PokemonParty playerParty;
     Pokemon wildPokemon;
+    Pokemon _pokemon;
+    
+
+    KeyCode decideKey = KeyCode.LeftCommand;
+    KeyCode cancelKey = KeyCode.LeftControl;
+    KeyCode optionKey = KeyCode.LeftAlt;
+    KeyCode upAllowKey = KeyCode.UpArrow;
+    KeyCode downAllowKey = KeyCode.DownArrow;
+    KeyCode raightAllowKey = KeyCode.RightArrow;
+    KeyCode lefAllowKey = KeyCode.LeftArrow;
+    
+    
     public void StartBattle(PokemonParty playerParty, Pokemon wildPokemon)
     {
         this.playerParty = playerParty;
@@ -55,7 +69,6 @@ public class BattleSystem : MonoBehaviour
         playerUnit.Setup(playerParty.GetHealthyPokemon());
         enemyUnit.Setup(wildPokemon);
         partyScreen.Init();
-
 
         dialogBox.SetMoveNames(playerUnit.Pokemon.Moves);
 
@@ -83,6 +96,13 @@ public class BattleSystem : MonoBehaviour
         state = BattleState.PartyScreen;
         partyScreen.gameObject.SetActive(true);
         partyScreen.SetPatyData(playerParty.Pokemons);
+    }
+
+    void OpenPartyStatus()
+    {
+        state = BattleState.StatusScreen;
+        statusScreen.gameObject.SetActive(true);
+        //statusScreen.SetPartyStatusData();
     }
 
     void CheckForBattleOver(BattleUnit faintedUnit)
@@ -366,23 +386,27 @@ public class BattleSystem : MonoBehaviour
         {
             HandlePartySelection();
         }
+        else if (state == BattleState.StatusScreen)
+        {
+            WatchPokemonStatus();
+        }
     }
 
     void HandleActionSelection()
     {
-        if (Input.GetKeyDown(KeyCode.RightArrow))
+        if (Input.GetKeyDown(raightAllowKey))
         {
             currentAction++;
         }
-        else if (Input.GetKeyDown(KeyCode.LeftArrow))
+        else if (Input.GetKeyDown(lefAllowKey))
         {
             currentAction--;
         }
-        else if (Input.GetKeyDown(KeyCode.DownArrow))
+        else if (Input.GetKeyDown(downAllowKey))
         {
             currentAction += 2;
         }
-        else if (Input.GetKeyDown(KeyCode.UpArrow))
+        else if (Input.GetKeyDown(upAllowKey))
         {
             currentAction -= 2;
         }
@@ -391,7 +415,7 @@ public class BattleSystem : MonoBehaviour
 
         dialogBox.UpdateActionSelection(currentAction);
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(decideKey))
         {
             if (currentAction == 0)
             {
@@ -407,19 +431,19 @@ public class BattleSystem : MonoBehaviour
 
     void HandleMoveSelection()
     {
-        if (Input.GetKeyDown(KeyCode.RightArrow))
+        if (Input.GetKeyDown(raightAllowKey))
         {
             currentMove++;
         }
-        else if (Input.GetKeyDown(KeyCode.LeftArrow))
+        else if (Input.GetKeyDown(lefAllowKey))
         {
             currentMove--;
         }
-        else if (Input.GetKeyDown(KeyCode.DownArrow))
+        else if (Input.GetKeyDown(downAllowKey))
         {
             currentMove += 2;
         }
-        else if (Input.GetKeyDown(KeyCode.UpArrow))
+        else if (Input.GetKeyDown(upAllowKey))
         {
             currentMove -= 2;
         }
@@ -427,7 +451,7 @@ public class BattleSystem : MonoBehaviour
         currentMove = Mathf.Clamp(currentMove, 0, playerUnit.Pokemon.Moves.Count - 1);
         dialogBox.UpdateMoveSelection(currentMove, playerUnit.Pokemon.Moves[currentMove]);
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(decideKey))
         {
             Move move = playerUnit.Pokemon.Moves[currentMove];
             if (move.PP == 0)
@@ -437,10 +461,9 @@ public class BattleSystem : MonoBehaviour
 
             dialogBox.EnableMoveSelector(false);
             dialogBox.EnableDialogText(true);
-            //StartCoroutine(PlayerMove());
             StartCoroutine(RunTurns(BattleAction.Move));
         }
-        if (Input.GetKeyDown(KeyCode.LeftCommand))
+        if (Input.GetKeyDown(cancelKey))
         {
             dialogBox.EnableMoveSelector(false);
             dialogBox.EnableDialogText(true);
@@ -450,29 +473,28 @@ public class BattleSystem : MonoBehaviour
 
     void HandlePartySelection()
     {
-        if (Input.GetKeyDown(KeyCode.RightArrow))
+        if (Input.GetKeyDown(raightAllowKey))
         {
             currentMember++;
         }
-        else if (Input.GetKeyDown(KeyCode.LeftArrow))
+        else if (Input.GetKeyDown(lefAllowKey))
         {
             currentMember--;
         }
-        else if (Input.GetKeyDown(KeyCode.DownArrow))
+        else if (Input.GetKeyDown(downAllowKey))
         {
             currentMember += 2;
         }
-        else if (Input.GetKeyDown(KeyCode.UpArrow))
+        else if (Input.GetKeyDown(upAllowKey))
         {
             currentMember -= 2;
         }
         
-
-        currentMove = Mathf.Clamp(currentMove, 0, playerParty.Pokemons.Count - 1);
+        currentMember = Mathf.Clamp(currentMember, 0, playerParty.Pokemons.Count - 1);
 
         partyScreen.UpdateMemberSelection(currentMember);
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(decideKey))
         {
             Pokemon selectedMember = playerParty.Pokemons[currentMember];
             if (selectedMember.HP <= 0)
@@ -501,10 +523,24 @@ public class BattleSystem : MonoBehaviour
             }
             //dialogBox.EnableActionSelector(false);
         }
-        if (Input.GetKeyDown(KeyCode.LeftCommand))
+        if (Input.GetKeyDown(cancelKey))
         {
             partyScreen.gameObject.SetActive(false);
             ActionSelection();
+        }
+
+        if (Input.GetKeyDown(optionKey))
+        {
+            OpenPartyStatus();
+        }
+    }
+
+    void WatchPokemonStatus()
+    {
+        if (Input.GetKeyDown(cancelKey))
+        {
+            statusScreen.gameObject.SetActive(false);
+            OpenPartyAction();
         }
     }
 

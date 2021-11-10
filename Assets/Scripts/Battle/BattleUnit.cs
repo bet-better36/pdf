@@ -43,10 +43,10 @@ public class BattleUnit : MonoBehaviour
         }
         hud.SetData(pokemon);
         image.color = originalColor;
-        PlayerEnterAnimetion();
+        PlayerEnterAnimation();
     }
 
-    public void PlayerEnterAnimetion()
+    public void PlayerEnterAnimation()
     {
         if (IsPlayerUnit)
         {

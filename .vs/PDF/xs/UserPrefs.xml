@@ -1,25 +1,34 @@
 ﻿<Properties StartupConfiguration="{39BEAC8F-C64B-DE38-E302-56CF48842200}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Battle/BattleSystem.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Player/PlayerController.cs">
     <Files>
-      <File FileName="Assets/Scripts/Pokemon/Pokemon.cs" Line="87" Column="26" />
-      <File FileName="Assets/Scripts/Battle/BattleSystem.cs" Line="203" Column="1" />
-      <File FileName="Assets/Scripts/Pokemon/MoveBase.cs" Line="34" Column="43" />
-      <File FileName="Assets/Scripts/Pokemon/Condition.cs" Line="8" Column="38" />
-      <File FileName="Assets/Scripts/Data/CondeitionDB.cs" Line="126" Column="36" />
-      <File FileName="Assets/Scripts/Pokemon/Move.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Battle/BattleDialogBox.cs" Line="53" Column="30" />
+      <File FileName="Assets/Scripts/Battle/StatusScreen.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Pokemon/PokemonParty.cs" />
+      <File FileName="Assets/Scripts/Pokemon/Pokemon.cs" />
+      <File FileName="Assets/Scripts/Battle/BattleDialogBox.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Player/PlayerController.cs" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
-          <Node name="PDF" expanded="True" selected="True" />
+          <Node name="PDF" expanded="True">
+            <Node name="Assets" expanded="True">
+              <Node name="Scripts" expanded="True">
+                <Node name="Battle" expanded="True" />
+                <Node name="Data" expanded="True" />
+                <Node name="Player" expanded="True">
+                  <Node name="PlayerController.cs" selected="True" />
+                </Node>
+                <Node name="Pokemon" expanded="True" />
+              </Node>
+            </Node>
+          </Node>
         </State>
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="d2dd6c66-523a-4aec-9378-e5c9cf0a0395" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="17a7ffe7-107d-4555-93c0-50268980012c" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
